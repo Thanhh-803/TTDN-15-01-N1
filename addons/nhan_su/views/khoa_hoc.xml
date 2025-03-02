@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_khoa_hoc_form" model="ir.ui.view">
+            <field name="name">khoa_hoc</field>
+            <field name="model">khoa_hoc</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Danh sách khóa học</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="ma_khoa_hoc"/>
+                            <field name="ten_khoa_hoc"/>
+                            <field name="mo_ta_khoa_hoc"/>
+                            <field name="ke_hoach_giang_day"/>
+                            <field name="loai_khoa_hoc"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_khoa_hoc_tree" model="ir.ui.view">
+            <field name="name">khoa_hoc</field>
+            <field name="model">khoa_hoc</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_khoa_hoc"/>
+                    <field name="ten_khoa_hoc"/>
+                    <field name="mo_ta_khoa_hoc"/>
+                    <field name="ke_hoach_giang_day"/>
+                    <field name="loai_khoa_hoc"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="khoa_hoc_search">
+            <field name="model">khoa_hoc</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_khoa_hoc"/>
+                    <field name="ten_khoa_hoc"/>
+                    <field name="mo_ta_khoa_hoc"/>
+                    <field name="ke_hoach_giang_day"/>
+                    <field name="loai_khoa_hoc"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_khoa_hoc" model="ir.actions.act_window">
+            <field name="name">Quản lý khóa học</field>
+            <field name="res_model">khoa_hoc</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "khoa_hoc_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    
