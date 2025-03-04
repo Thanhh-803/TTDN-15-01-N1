@@ -69,7 +69,18 @@ class NhanVien(models.Model):
 
 
     # Khóa học tham gia
-    khoa_hoc_tham_gia_ids = fields.One2many("tham_gia_khoa_dao_tao", "employee_id", string="Khóa học tham gia")
+    khoa_hoc_tham_gia_ids = fields.One2many(
+        "tham_gia_khoa_dao_tao", 
+        inverse_name = "employee_id", 
+        string="Khóa học tham gia"
+    )
+
+    # Hợp đồng nhân viên
+    hop_dong_ids = fields.One2many(
+        "hop_dong", 
+        inverse_name = "nhan_vien_id", 
+        string="Thông tin hợp đồng"
+    )
 
 
     chuc_vu_id = fields.Many2one("chuc_vu", string="Chức vụ")

@@ -9,19 +9,37 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Bảng lương</div>
                         <group col="4" string="Thông tin chung">
-                            <field name="nam_hanh_chinh"/>
-                            <field name="thang_hanh_chinh"/>
-                            <field name="luong_co_ban"/>
-                            <field name="thuong"/>
-                            <field name="phu_cap_xang_xe"/>
-                            <field name="phu_cap_an_trua"/>
-                            <field name="phu_cap_dien_thoai"/>
-                            <field name="bhxh"/>
-                            <field name="bhyt"/>
-                            <field name="phu_cap"/>
-                            <field name="khau_tru"/>
-                            <field name="tong_luong"/>
-                            <field name="trang_thai"/>
+                            <group string="Thời gian hành chính">
+                                <field name="nhan_vien_id"/>
+                                <field name="nam_hanh_chinh"/>
+                                <field name="thang_hanh_chinh"/>
+                                <field name="ngay_bat_dau"/>
+                                <field name="ngay_ket_thuc"/>
+                            </group>
+                            <group string="Lương nhân viên">
+                                <field name="luong_hop_dong"/>
+                                <field name="ngay_cong_thuc_te"/>
+                                <field name="luong_co_ban"/>
+                                <field name="thuong"/>
+                                <field name="gio_lam_them"/>
+                                <field name="luong_lam_them"/>
+                                <field name="ngay_nghi"/>
+                            </group>
+                            <group string="Phụ cấp">
+                                <field name="phu_cap_xang_xe"/>
+                                <field name="phu_cap_an_trua"/>
+                                <field name="phu_cap_dien_thoai"/>
+                                <field name="phu_cap"/>
+                            </group>
+                            <group string="Các khoản khấu trừ">
+                                <field name="bhxh"/>
+                                <field name="bhyt"/>
+                                <field name="khau_tru"/>
+                            </group>
+                            <group string="Tổng lương">
+                                <field name="tong_luong"/>
+                                <field name="trang_thai"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
@@ -33,19 +51,16 @@
             <field name="model">bang_luong</field>
             <field name="arch" type="xml">
                 <tree>
-                <field name="nam_hanh_chinh"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="nam_hanh_chinh"/>
                     <field name="thang_hanh_chinh"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                    <field name="luong_hop_dong"/>
                     <field name="luong_co_ban"/>
-                    <field name="thuong"/>
-                    <field name="phu_cap_xang_xe"/>
-                    <field name="phu_cap_an_trua"/>
-                    <field name="phu_cap_dien_thoai"/>
-                    <field name="bhxh"/>
-                    <field name="bhyt"/>
-                    <field name="phu_cap"/>
-                    <field name="khau_tru"/>
                     <field name="tong_luong"/>
                     <field name="trang_thai"/>
+                    <button name="action_xac_nhan" type="object" string="Xác nhận thanh toán" class="btn-primary"/>
                 </tree>
             </field>
         </record>
@@ -54,17 +69,23 @@
             <field name="model">bang_luong</field>
             <field name="arch" type="xml">
                 <search>
-                <field name="nhan_vien_id"/>
+                    <field name="nhan_vien_id"/>
                     <field name="nam_hanh_chinh"/>
                     <field name="thang_hanh_chinh"/>
+                    <field name="ngay_bat_dau"/>
+                    <field name="ngay_ket_thuc"/>
+                    <field name="luong_hop_dong"/>
+                    <field name="ngay_cong_thuc_te"/>
                     <field name="luong_co_ban"/>
                     <field name="thuong"/>
+                    <field name="gio_lam_them"/>
+                    <field name="ngay_nghi"/>
                     <field name="phu_cap_xang_xe"/>
                     <field name="phu_cap_an_trua"/>
                     <field name="phu_cap_dien_thoai"/>
+                    <field name="phu_cap"/>
                     <field name="bhxh"/>
                     <field name="bhyt"/>
-                    <field name="phu_cap"/>
                     <field name="khau_tru"/>
                     <field name="tong_luong"/>
                     <field name="trang_thai"/>

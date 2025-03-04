@@ -40,12 +40,7 @@
             sequence="5"
             action="action_chung_chi"
         />
-        <menuitem name="Lương nhân viên" 
-            id="menu_bang_luong" 
-            parent="menu_danh_muc_chung" 
-            sequence="6"
-            action="action_bang_luong"
-        />
+       
         <!-- Menu: Phòng ban -->
         <menuitem name="Phòng ban" 
             id="menu_phong_ban" 
@@ -53,18 +48,43 @@
             sequence="2" 
             action="action_phong_ban"
         />
-        
+        <!-- Menu: Chương trình đào tạo - Phát triển-->
+        <menuitem name="Đào tạo - phát triển" 
+            id="menu_dao_tao_tuyen_dung" 
+            parent="menu_root" 
+            sequence="3" 
+            action="action_khoa_dao_tao"
+        />
+        <menuitem name="Chương trình đào tạo" 
+            id="menu_khoa_dao_tao" 
+            parent="menu_dao_tao_tuyen_dung" 
+            sequence="1" 
+            action="action_khoa_dao_tao" /> 
+
         <menuitem name="Quản lý khóa học" 
             id="menu_khoa_hoc" 
-            parent="menu_root" 
-            sequence="4" 
+            parent="menu_dao_tao_tuyen_dung" 
+            sequence="2" 
             action="action_khoa_hoc" /> <!-- Thứ tự 4 -->
 
         <menuitem name="Tham gia khóa đào tạo" 
             id="menu_tham_gia_khoa_hoc" 
-            parent="menu_root" 
-            sequence="4" 
+            parent="menu_dao_tao_tuyen_dung" 
+            sequence="3" 
             action="action_tham_gia_khoa_dao_tao" /> <!-- Thứ tự 4 -->
         
+        <!-- Menu: Hợp đồng nhân viên -->
+        <menuitem name="Hợp đồng nhân viên" 
+            id="menu_hop_dong" 
+            parent="menu_root" 
+            sequence="4" 
+            action="action_hop_dong"
+        />
+         <menuitem name="Lương nhân viên" 
+            id="menu_bang_luong" 
+            parent="menu_root" 
+            sequence="5"
+            action="action_bang_luong"
+        />
     </data>
 </odoo>

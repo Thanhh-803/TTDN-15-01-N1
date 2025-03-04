@@ -44,6 +44,15 @@ class LichSuCongTac(models.Model):
         string="Loại chức vụ", default="Chính"
     )
     phong_ban_id = fields.Many2one("phong_ban", string="Phòng ban")
+
+    # Lấy thông tin hợp đồng của nhân viên
+    loai_hop_dong = fields.Selection(
+        string="Loại hợp đồng",
+        related="nhan_vien_id.hop_dong_ids.loai_hop_dong",
+        store=True,
+        readonly=True
+    )
+
     ngay_vao_lam = fields.Date("Ngày vào làm")
     trang_thai = fields.Selection(
         [
@@ -63,12 +72,12 @@ class LichSuCongTac(models.Model):
     )
     
 
-    # Tránh tình trạng một nhân viên chọn chính mình làm quản lý
+    # Tránh  một nhân viên chọn chính mình làm quản lý
     @api.depends('phong_ban_id', 'phong_ban_id.nhan_vien_id', 'nhan_vien_id')
     def _compute_quan_ly_truc_tiep(self):
         for record in self:
             if record.phong_ban_id and record.phong_ban_id.nhan_vien_id:
-                # Nếu nhân viên đó chính là người quản lý thì không gán
+                # Nếu nhân viên đó chính là người quản lý thì để false
                 if record.nhan_vien_id == record.phong_ban_id.nhan_vien_id:
                     record.quan_ly_truc_tiep = False
                 else:

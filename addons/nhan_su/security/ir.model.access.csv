@@ -6,5 +6,7 @@ access_lich_su_cong_tac,lich_su_cong_tac.lich_su_cong_tac,model_lich_su_cong_tac
 access_chung_chi,chung_chi.chung_chi,model_chung_chi,base.group_user,1,1,1,1
 access_phong_ban,phong_ban.phong_ban,model_phong_ban,base.group_user,1,1,1,1
 access_khoa_hoc,khoa_hoc.khoa_hoc,model_khoa_hoc,base.group_user,1,1,1,1
+access_khoa_dao_tao,khoa_dao_tao.khoa_dao_tao,model_khoa_dao_tao,base.group_user,1,1,1,1
 access_tham_gia_khoa_dao_tao,tham_gia_khoa_dao_tao.tham_gia_khoa_dao_tao,model_tham_gia_khoa_dao_tao,base.group_user,1,1,1,1
+access_hop_dong,hop_dong.hop_dong,model_hop_dong,base.group_user,1,1,1,1
 access_bang_luong,bang_luong.bang_luong,model_bang_luong,base.group_user,1,1,1,1

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_khoa_dao_tao_form" model="ir.ui.view">
+            <field name="name">khoa_dao_tao</field>
+            <field name="model">khoa_dao_tao</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Khóa đào tạo</div>
+                        <group col="4" string="Thông tin chung" >
+                            <field name="ma_khoa_dao_tao"/>
+                            <field name="ten_khoa_dao_tao"/>
+                            <field name="noi_dung_dao_tao"/>
+                            <field name="hinh_thuc_dao_tao"/>
+                            <field name="doi_tuong_tham_gia"/>
+                            <field name="thoi_gian"/>
+                            <field name="employee_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Danh sách khóa học">
+                                <field name="khoa_hoc_ids">
+                                    <tree>
+                                        <field name="ten_khoa_hoc"/>
+                                        <field name="mo_ta_khoa_hoc"/>
+                                        <field name="ke_hoach_giang_day"/>
+                                        <field name="loai_khoa_hoc"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_khoa_dao_tao_tree" model="ir.ui.view">
+            <field name="name">khoa_dao_tao</field>
+            <field name="model">khoa_dao_tao</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_khoa_dao_tao"/>
+                    <field name="ten_khoa_dao_tao"/>
+                    <field name="noi_dung_dao_tao"/>
+                    <field name="hinh_thuc_dao_tao"/>
+                    <field name="doi_tuong_tham_gia"/>
+                    <field name="thoi_gian"/>
+                    <field name="employee_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="khoa_dao_tao_search">
+            <field name="model">khoa_dao_tao</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_khoa_dao_tao"/>
+                    <field name="ten_khoa_dao_tao"/>
+                    <field name="noi_dung_dao_tao"/>
+                    <field name="hinh_thuc_dao_tao"/>
+                    <field name="doi_tuong_tham_gia"/>
+                    <field name="thoi_gian"/>
+                    <field name="employee_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_khoa_dao_tao" model="ir.actions.act_window">
+            <field name="name">Danh sách khóa đào tạo</field>
+            <field name="res_model">khoa_dao_tao</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "khoa_dao_tao_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

@@ -26,23 +26,28 @@
                             <page string="Thông tin công việc">
                                 <field name="lich_su_cong_tac_ids"/>
                             </page>
-                            <page string="Chứng chỉ/Bằng cấp">
-                                <field name="chung_chi_ids"/>
+                            <page string="Thông tin hợp đồng">
+                                <field name="hop_dong_ids">
+                                    <tree>
+                                        <field name="ma_hop_dong"/>
+                                        <field name="loai_hop_dong"/>
+                                        <field name="Ngay_bat_dau"/>
+                                        <field name="Ngay_ket_thuc"/>
+                                        <field name="luong_hop_dong"/>
+                                        <field name="trang_thai"/>
+                                    </tree>
+                                </field>
                             </page>
-                            <page string="Bảng lương">
+                            <page string="Thông tin lương">
                                 <field name="bang_luong_ids">
                                     <tree>
+                                        <field name="nhan_vien_id"/>
                                         <field name="nam_hanh_chinh"/>
                                         <field name="thang_hanh_chinh"/>
+                                        <field name="ngay_bat_dau"/>
+                                        <field name="ngay_ket_thuc"/>
+                                        <field name="luong_hop_dong"/>
                                         <field name="luong_co_ban"/>
-                                        <field name="thuong"/>
-                                        <field name="phu_cap_xang_xe"/>
-                                        <field name="phu_cap_an_trua"/>
-                                        <field name="phu_cap_dien_thoai"/>
-                                        <field name="bhxh"/>
-                                        <field name="bhyt"/>
-                                        <field name="phu_cap"/>
-                                        <field name="khau_tru"/>
                                         <field name="tong_luong"/>
                                         <field name="trang_thai"/>
                                     </tree>
@@ -52,9 +57,15 @@
                                 <field name="khoa_hoc_tham_gia_ids">
                                     <tree>
                                         <field name="ma_khoa_hoc"/>
-                                        <field name="role"/>
+                                        <field name="nguoi_tham_gia_khoa_hoc"/>
+                                        <field name="chuc_vu_id"/>
+                                        <field name="phong_ban_id"/>
+                                        <field name="trang_thai"/>
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Chứng chỉ/Bằng cấp">
+                                <field name="chung_chi_ids"/>
                             </page>
                         </notebook>
                     </sheet>

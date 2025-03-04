@@ -13,6 +13,7 @@
                             <field name="chuc_vu_id"/>
                             <field name="loai_chuc_vu"/>
                             <field name="phong_ban_id"/>
+                            <field name="loai_hop_dong"/>
                             <field name="ngay_vao_lam"/>
                             <field name="quan_ly_truc_tiep" />
                             <field name="trang_thai" />  
@@ -31,6 +32,7 @@
                     <field name="chuc_vu_id"/>
                     <field name="loai_chuc_vu"/>
                     <field name="phong_ban_id"/>
+                    <field name="loai_hop_dong"/>
                     <field name="ngay_vao_lam"/>
                     <field name="quan_ly_truc_tiep"/>
                     <field name="trang_thai"/>       
@@ -46,6 +48,7 @@
                     <field name="chuc_vu_id"/>
                     <field name="loai_chuc_vu"/>
                     <field name="phong_ban_id"/>
+                    <field name="loai_hop_dong"/>
                     <field name="ngay_vao_lam"/>
                     <field name="quan_ly_truc_tiep"/>
                     <field name="trang_thai"/>   
