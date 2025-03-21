@@ -30,7 +30,13 @@
                                         <field name="chuc_vu_id"/>
                                         <field name="phong_ban_id"/>
                                         <field name="ngay_vao_lam"/>
-                                        <field name="trang_thai"/>
+                                        <field name="trang_thai" widget="badge"
+                                            decoration-success="trang_thai == 'dang_lam_viec'"
+                                            decoration-info="trang_thai == 'nghi_thai_san'"
+                                            decoration-primary="trang_thai == 'thu_viec'"
+                                            decoration-warning="trang_thai == 'tam_ngung_cong_tac'"
+                                            decoration-danger="trang_thai == 'da_nghi_viec'"
+                                        />  
                                     </tree>
                                 </field>
                             </page>
@@ -51,7 +57,11 @@
                     <field name="nhan_vien_id"/>
                     <field name="email"/>
                     <field name="so_luong_nhan_vien"/>
-                    <field name="trang_thai"/>
+                    <field name="trang_thai" widget="badge"
+                        decoration-success="trang_thai == 'DanghoatDong'"
+                        decoration-warning="trang_thai == 'TamNgung'"
+                        decoration-danger="trang_thai == 'GiaiThe'"
+                    />  
                 </tree>
             </field>
         </record>
@@ -71,10 +81,21 @@
             </field>
         </record>
 
+        <record id="view_phong_ban_graph" model="ir.ui.view">
+            <field name="name">phong_ban</field>
+            <field name="model">phong_ban</field>
+            <field name="arch" type="xml">
+                <graph string="Thống kê số lượng nhân viên theo phòng ban" type="bar">
+                    <field name="ten_phong_ban" type="row"/>
+                    <field name="so_luong_nhan_vien" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
         <record id="action_phong_ban" model="ir.actions.act_window">
             <field name="name">Danh sách phòng ban</field>
             <field name="res_model">phong_ban</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref = "phong_ban_search"/>
         </record>
     </data>

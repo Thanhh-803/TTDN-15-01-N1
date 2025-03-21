@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        
         <record id="view_bang_luong_form" model="ir.ui.view">
             <field name="name">bang_luong</field>
             <field name="model">bang_luong</field>
@@ -21,6 +22,7 @@
                                 <field name="ngay_cong_thuc_te"/>
                                 <field name="luong_co_ban"/>
                                 <field name="thuong"/>
+                                <field name="phat"/>
                                 <field name="gio_lam_them"/>
                                 <field name="luong_lam_them"/>
                                 <field name="ngay_nghi"/>
@@ -59,8 +61,20 @@
                     <field name="luong_hop_dong"/>
                     <field name="luong_co_ban"/>
                     <field name="tong_luong"/>
-                    <field name="trang_thai"/>
-                    <button name="action_xac_nhan" type="object" string="Xác nhận thanh toán" class="btn-primary"/>
+                    <field name="trang_thai" widget="badge"
+                        decoration-warning="trang_thai == 'cho_duyet'"
+                        decoration-success="trang_thai == 'da_thanh_toan'"
+                        decoration-danger="trang_thai == 'huy'"
+                    />  
+                    <!-- Ẩn nút Xác nhận nếu đã thanh toán -->
+                    <button name="action_xac_nhan" type="object" string="Thanh toán"
+                        class="btn-success"
+                        attrs="{'invisible': [('trang_thai', '!=', 'cho_duyet')]}"/>
+
+                    <!-- Ẩn nút Chờ duyệt nếu đã thanh toán -->
+                    <button name="action_cho_duyet" type="object" string="Chờ duyệt"
+                        class="btn-primary"
+                        attrs="{'invisible': [('trang_thai', '!=', 'huy')]}"/>
                 </tree>
             </field>
         </record>
@@ -89,14 +103,39 @@
                     <field name="khau_tru"/>
                     <field name="tong_luong"/>
                     <field name="trang_thai"/>
+
+
+                    <!-- Thêm Search Panel -->
+                    <searchpanel>
+                        <field name="nhan_vien_id" select="multi"/>
+                        <field name="thang_hanh_chinh" select="multi"/>
+                        <field name="trang_thai" select="multi"/>
+                    </searchpanel>
+                    <!-- Thêm bộ lọc tìm kiếm -->
+                    <filter name="nhan_vien_id" string="Nhân viên " domain="[('nhan_vien_id', '=', 'nhan_vien_id')]"/>
+                    <filter name="thang_hanh_chinh" string="Tháng hành chính " domain="[('thang_hanh_chinh', '=', 'thang_hanh_chinh')]"/>
+                    <filter name="cho_duyet" string="Chờ duyệt" domain="[('trang_thai', '=', 'cho_duyet')]"/>
+                    <filter name="da_duyet" string="Đã duyệt" domain="[('trang_thai', '=', 'da_duyet')]"/>
                 </search>
+            </field>
+        </record>
+
+        <record id="view_bang_luong_graph" model="ir.ui.view">
+            <field name="name">bang_luong</field>
+            <field name="model">bang_luong</field>
+            <field name="arch" type="xml">
+                <graph string="Biến động lương theo thời gian" type="line">
+                    <field name="thang_hanh_chinh" type="row"/>
+                    <field name="tong_luong" type="measure"/>
+                    <field name="ty_le_thuong_phat" type="measure"/>
+                </graph>
             </field>
         </record>
 
         <record id="action_bang_luong" model="ir.actions.act_window">
             <field name="name">Bảng lương</field>
             <field name="res_model">bang_luong</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="search_view_id" ref = "bang_luong_search"/>
         </record>
     </data>

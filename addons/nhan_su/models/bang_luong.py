@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class BangLuong(models.Model):
     _name = 'bang_luong'
@@ -31,9 +32,12 @@ class BangLuong(models.Model):
     ngay_cong_thuc_te = fields.Integer(string="Ngày công thực tế", compute="_compute_ngay_cong", store=True)
 
     # Thưởng, phụ cấp
-    thuong = fields.Float("Thưởng", default=0.0)
+    thuong = fields.Float("Thưởng", default=0.0, compute="_compute_thuong_phat", store=True)
+    phat = fields.Float("Phạt", default=0.0, compute="_compute_thuong_phat", store=True)
+
+
     gio_lam_them = fields.Float("Giờ làm thêm", required=True)
-    ngay_nghi = fields.Float("Ngày nghỉ", required=True)
+    ngay_nghi = fields.Integer("Ngày nghỉ",compute="_compute_ngay_nghi", store = True)
     phu_cap_xang_xe = fields.Float("Phụ cấp xăng xe", default=0.0)
     phu_cap_an_trua = fields.Float("Phụ cấp ăn trưa", default=0.0)
     phu_cap_dien_thoai = fields.Float("Phụ cấp điện thoại", default=0.0)
@@ -51,7 +55,56 @@ class BangLuong(models.Model):
     trang_thai = fields.Selection([
         ('cho_duyet', 'Chờ duyệt'),
         ('da_thanh_toan', 'Đã thanh toán'),
+        ('huy', 'Hủy'),
     ], string="Trạng thái", default='cho_duyet')
+
+    ty_le_thuong_phat = fields.Float(string="Tỷ Lệ Thưởng/Phạt (%)", compute="_compute_tyle_thuong_phat", store=True)
+
+    @api.depends("thuong", "phat")
+    def _compute_tyle_thuong_phat(self):
+        for record in self:
+            total = record.thuong + record.phat
+            record.ty_le_thuong_phat = (record.thuong / total * 100) if total > 0 else 0
+
+
+    # Lấy số tiền thưởng và số tiền phạt từ model khen thưởng/kỷ luật
+    @api.depends('nhan_vien_id', 'thang_hanh_chinh', 'nam_hanh_chinh')
+    def _compute_thuong_phat(self):
+        for record in self:
+            if record.nhan_vien_id:
+                # Lọc các quyết định khen thưởng/kỷ luật của nhân viên theo tháng và năm
+                decisions = self.env['khen_thuong_ky_luat'].search([
+                    ('nhan_vien_id', '=', record.nhan_vien_id.id),
+                    ('thang_quyet_dinh', '=', record.thang_hanh_chinh),
+                    ('nam_quyet_dinh', '=', record.nam_hanh_chinh),
+                    ('trang_thai', '=', 'xac_nhan')
+                ])
+
+                # Tính tổng tiền thưởng và tiền phạt
+                thuong = sum(dec.so_tien_thuong for dec in decisions if dec.loai == 'khen_thuong')
+                tien_phat = sum(dec.so_tien_phat for dec in decisions if dec.loai == 'ky_luat')
+
+                record.thuong = thuong
+                record.phat = tien_phat
+            else:
+                record.thuong = 0.0
+                record.phat = 0.0
+
+
+    @api.depends('nhan_vien_id', 'thang_hanh_chinh', 'nam_hanh_chinh')
+    def _compute_ngay_nghi(self):
+        """Tính số ngày nghỉ dựa trên dữ liệu trong bảng ngày nghỉ"""
+        for record in self:
+            if record.nhan_vien_id and record.thang_hanh_chinh:
+                ngay_nghi_count = self.env['ngay_nghi'].search_count([
+                    ('nhan_vien_id', '=', record.nhan_vien_id.id),
+                    ('thang_hanh_chinh', '=', record.thang_hanh_chinh),
+                    ('nam', '=', record.nam_hanh_chinh),
+                    ('phe_duyet', '=', 'da_duyet') 
+                ])
+                record.ngay_nghi = ngay_nghi_count
+            else:
+                record.ngay_nghi = 0
 
 
      # lương làm thêm là 100k /giờ
@@ -77,20 +130,35 @@ class BangLuong(models.Model):
             record.bhyt = record.luong_co_ban * 0.015 # 1.5% BHYT
 
     # Tính tổng lương cho nhân viên
-    @api.depends('luong_co_ban','luong_lam_them', 'thuong', 'phu_cap', 'bhxh', 'bhyt', 'khau_tru')
+    @api.depends('luong_co_ban', 'luong_lam_them', 'thuong', 'phat', 'phu_cap', 
+             'phu_cap_an_trua', 'phu_cap_dien_thoai', 'phu_cap_xang_xe', 
+             'bhxh', 'bhyt', 'khau_tru')
     def _compute_tong_luong(self):
         for record in self:
             record.tong_luong = (
-                record.luong_co_ban + record.thuong + record.phu_cap + record.luong_lam_them
-                - record.bhxh - record.bhyt - record.khau_tru
+                (record.luong_co_ban or 0.0) + (record.luong_lam_them or 0.0) 
+                + (record.thuong or 0.0) + (record.phu_cap or 0.0) 
+                + (record.phu_cap_an_trua or 0.0) + (record.phu_cap_dien_thoai or 0.0) 
+                + (record.phu_cap_xang_xe or 0.0)
+                - (record.phat or 0.0) - (record.bhxh or 0.0) 
+                - (record.bhyt or 0.0) - (record.khau_tru or 0.0)
             )
 
-    # Xác nhận thanh toán lương cho nhân viên
     def action_xac_nhan(self):
+        # Xác nhận thanh toán lương
         for record in self:
             if record.trang_thai == 'cho_duyet':
                 record.write({'trang_thai': 'da_thanh_toan'})
+            else:
+                raise ValidationError("Xác nhận khi trạng thái là 'Chờ duyệt'!")
 
+    def action_cho_duyet(self):
+        # Chuyển trạng thái về 'Chờ duyệt'
+        self.write({'trang_thai': 'cho_duyet'})
+
+    def action_huy(self):
+        """Hủy quyết định"""
+        self.write({'trang_thai': 'huy'})
 
     # Lấy lương hợp đồng và gán lương cơ bản
     @api.onchange('nhan_vien_id')

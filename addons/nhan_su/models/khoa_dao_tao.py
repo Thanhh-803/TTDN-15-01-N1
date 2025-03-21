@@ -19,7 +19,7 @@ class KhoaDaoTao(models.Model):
     )
     
     doi_tuong_tham_gia = fields.Char("Đối tượng tham gia")
-    thoi_gian = fields.Date("Thời gian đào tạo")
+    thoi_gian = fields.Char("Thời gian đào tạo")
     # Người hướng hẫn
     employee_id = fields.Many2one("nhan_vien", string="Giảng viên/Người hướng dẫn")
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_trinh_do_hoc_van_form" model="ir.ui.view">
+            <field name="name">trinh_do_hoc_van</field>
+            <field name="model">trinh_do_hoc_van</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Trình độ học vấn</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="nhan_vien_id"/>
+                            <field name="nam_tot_nghiep"/>
+                            <field name="trinh_do_hoc_van"/>
+                            <field name="chuyen_nganh"/>
+                            <field name="bang_cap"/>
+                            <field name="truong_dao_tao"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_trinh_do_hoc_van_tree" model="ir.ui.view">
+            <field name="name">trinh_do_hoc_van</field>
+            <field name="model">trinh_do_hoc_van</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nhan_vien_id"/>
+                    <field name="nam_tot_nghiep"/>
+                    <field name="trinh_do_hoc_van"/>
+                    <field name="chuyen_nganh"/>
+                    <field name="bang_cap"/>
+                    <field name="truong_dao_tao"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="trinh_do_hoc_van_search">
+            <field name="model">trinh_do_hoc_van</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                    <field name="nam_tot_nghiep"/>
+                    <field name="trinh_do_hoc_van"/>
+                    <field name="chuyen_nganh"/>
+                    <field name="bang_cap"/>
+                    <field name="truong_dao_tao"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_trinh_do_hoc_van" model="ir.actions.act_window">
+            <field name="name">Trình độ học vấn</field>
+            <field name="res_model">trinh_do_hoc_van</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "trinh_do_hoc_van_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

@@ -21,9 +21,9 @@ class PhongBan(models.Model):
         string="Trạng thái", default="DanghoatDong"
     )
 
-    # Lấy danh sách nhân viên từ bảng `lich_su_cong_tac`
+    
     danh_sach_nhan_vien = fields.One2many(
-        'lich_su_cong_tac', 
+        'cong_viec', 
         'phong_ban_id', 
         string="Danh sách nhân viên"
     )

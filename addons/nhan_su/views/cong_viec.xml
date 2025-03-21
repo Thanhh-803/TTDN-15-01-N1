@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_lich_su_cong_tac_form" model="ir.ui.view">
-            <field name="name">lich_su_cong_tac</field>
-            <field name="model">lich_su_cong_tac</field>
+        <record id="view_cong_viec_form" model="ir.ui.view">
+            <field name="name">cong_viec</field>
+            <field name="model">cong_viec</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Lịch sử công tác</div>
+                        <div class="oe_read_only" style="font-size:25px">Thông tin công việc</div>
                         <group col="4" string="Thông tin chung">
-                                <field name="nhan_vien_id"/>
-                                <field name="ma_nhan_vien"/>
-                                <field name="chuc_vu_id"/>
-                                <field name="vi_tri"/>
-                                <field name="phong_ban_id"/>
-                                <field name="cong_ty"/>
-                                <field name="ngay_vao_lam"/>
-                                <field name="ngay_ket_thuc" />
-                                <field name="trang_thai" />
-                                <field name="ghi_chu" />  
+                            <field name="nhan_vien_id"/>
+                            <field name="ma_nhan_vien"/>
+                            <field name="chuc_vu_id"/>
+                            <field name="vi_tri"/>
+                            <field name="phong_ban_id"/>
+                            <field name="ngay_vao_lam"/>
+                            <field name="loai_hop_dong"/>
+                            <field name="muc_luong" />
+                            <field name="quan_ly_truc_tiep" />
+                            <field name="trang_thai" />  
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record id="view_lich_su_cong_tac_tree" model="ir.ui.view">
-            <field name="name">lich_su_cong_tac</field>
-            <field name="model">lich_su_cong_tac</field>
+        <record id="view_cong_viec_tree" model="ir.ui.view">
+            <field name="name">cong_viec</field>
+            <field name="model">cong_viec</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="ma_nhan_vien"/>
@@ -35,9 +35,10 @@
                     <field name="chuc_vu_id"/>
                     <field name="vi_tri"/>
                     <field name="phong_ban_id"/>
-                    <field name="cong_ty"/>
                     <field name="ngay_vao_lam"/>
-                    <field name="ngay_ket_thuc" />
+                    <field name="loai_hop_dong"/>
+                    <field name="muc_luong" />
+                    <field name="quan_ly_truc_tiep" />
                     <field name="trang_thai" widget="badge"
                         decoration-success="trang_thai == 'dang_lam_viec'"
                         decoration-info="trang_thai == 'nghi_thai_san'"
@@ -45,26 +46,26 @@
                         decoration-warning="trang_thai == 'tam_ngung_cong_tac'"
                         decoration-danger="trang_thai == 'da_nghi_viec'"
                     />
-                    <field name="ghi_chu" />  
                 </tree>
 
             </field>
         </record>
 
 
-        <record model="ir.ui.view" id="lich_su_cong_tac_search">
-            <field name="model">lich_su_cong_tac</field>
+        <record model="ir.ui.view" id="cong_viec_search">
+            <field name="model">cong_viec</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="nhan_vien_id"/>
                     <field name="ma_nhan_vien"/>
+                    <field name="nhan_vien_id"/>
                     <field name="chuc_vu_id"/>
                     <field name="vi_tri"/>
                     <field name="phong_ban_id"/>
                     <field name="ngay_vao_lam"/>
-                    <field name="ngay_ket_thuc" />
-                    <field name="trang_thai" />
-                    <field name="ghi_chu" />   
+                    <field name="loai_hop_dong"/>
+                    <field name="muc_luong" />
+                    <field name="quan_ly_truc_tiep" />
+                    <field name="trang_thai" />   
 
 
                     <!-- Thêm Search Panel -->
@@ -84,13 +85,11 @@
             </field>
         </record>
 
-        
-
-        <record id="action_lich_su_cong_tac" model="ir.actions.act_window">
-            <field name="name">Lịch sử công tác</field>
-            <field name="res_model">lich_su_cong_tac</field>
-            <field name="view_mode">tree,form,pivot</field>
-            <field name="search_view_id" ref = "lich_su_cong_tac_search"/>
+        <record id="action_cong_viec" model="ir.actions.act_window">
+            <field name="name">Thông tin công việc</field>
+            <field name="res_model">cong_viec</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "cong_viec_search"/>
         </record>
     </data>
 </odoo>

@@ -22,6 +22,10 @@ class HopDong(models.Model):
     Ngay_bat_dau = fields.Date("Ngày bắt đầu", required=True)
     Ngay_ket_thuc = fields.Date("Ngày kết thúc", required=True)
     luong_hop_dong = fields.Float("Lương hợp đồng", required=True)
+
+    
+    vi_tri_viec_lam = fields.Char("Vị trí việc làm", related = "nhan_vien_id.lich_su_cong_tac_ids.vi_tri", store = True)
+
     trang_thai = fields.Selection(
         [
             ("DangHieuLuc", "Đang hiệu lực"),

@@ -3,10 +3,10 @@
     // Dashboard layout
     .oe_dashboard_layout_1 .oe_dashboard_column {
         &.index_0 {
-            width: 100%;
+            width: 50%;
         }
         &.index_1, &.index_2 {
-            display: none;
+            display: flex;
         }
     }
     .oe_dashboard_layout_1-1 .oe_dashboard_column {

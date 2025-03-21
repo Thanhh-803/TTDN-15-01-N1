@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_khen_thuong_ky_luat_form" model="ir.ui.view">
+            <field name="name">khen_thuong_ky_luat</field>
+            <field name="model">khen_thuong_ky_luat</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Khen thưởng kỷ luật</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="ten_quyet_dinh"/>
+                            <field name="nhan_vien_id"/>
+                            <field name="nam_quyet_dinh"/>
+                            <field name="thang_quyet_dinh"/>
+                            <field name="ngay_quyet_dinh"/>
+                            <field name="loai"/>
+                            <field name="hinh_thuc"/>
+                            <field name="so_tien_thuong" attrs="{'invisible': [('loai', '!=', 'khen_thuong')]}"/>
+                            
+                            <field name="ly_do"/>
+                            <field name="trang_thai" />
+                            <field name="so_tien_phat" attrs="{'invisible': [('loai', '!=', 'ky_luat')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_khen_thuong_ky_luat_tree" model="ir.ui.view">
+            <field name="name">khen_thuong_ky_luat</field>
+            <field name="model">khen_thuong_ky_luat</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ten_quyet_dinh"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="loai"/>
+                    <field name="nam_quyet_dinh"/>
+                    <field name="thang_quyet_dinh"/>
+                    <field name="hinh_thuc"/>
+                    <field name="trang_thai" widget="badge"
+                        decoration-success="trang_thai == 'xac_nhan'"
+                        decoration-danger="trang_thai == 'huy'"
+                    /> 
+                    <button name="action_xac_nhan" type="object" string="Xác nhận" class="btn-success" attrs="{'invisible': [('trang_thai', '=', 'xac_nhan')]}"/>
+                    <button name="action_huy" type="object" string="Hủy" class="btn-danger" attrs="{'invisible': [('trang_thai', '=', 'huy')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="khen_thuong_ky_luat_search">
+            <field name="model">khen_thuong_ky_luat</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ten_quyet_dinh"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="loai"/>
+                    <field name="hinh_thuc"/>
+                    <field name="trang_thai"/>
+
+                     <!-- Thêm Search Panel -->
+                    <searchpanel>
+                        <field name="nhan_vien_id" select="multi"/>
+                        <field name="loai" select="multi"/>
+                    </searchpanel>
+                    <!-- Thêm bộ lọc tìm kiếm -->
+                    <filter name="nhan_vien_id" string="Nhân viên " domain="[('nhan_vien_id', '=', 'nhan_vien_id')]"/>
+                    <filter name="cho_duyet" string="Chờ duyệt" domain="[('trang_thai', '=', 'khen_thuong')]"/>
+                    <filter name="da_duyet" string="Đã duyệt" domain="[('trang_thai', '=', 'ky_luat')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_khen_thuong_ky_luat" model="ir.actions.act_window">
+            <field name="name">Khen thưởng kỷ luật</field>
+            <field name="res_model">khen_thuong_ky_luat</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "khen_thuong_ky_luat_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

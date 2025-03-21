@@ -9,7 +9,8 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Tham gia nhân viên khóa đào tạo</div>
                         <group col="4" string="Thông tin chung" >
-                            <field name="ma_khoa_hoc"/>
+                            <field name="ma_dao_tao"/>
+                            <field name="ten_khoa_hoc"/>
                             <field name="employee_id"/>
                             <field name="nguoi_tham_gia_khoa_hoc"/>
                             <field name="chuc_vu_id"/>
@@ -26,7 +27,8 @@
             <field name="model">tham_gia_khoa_dao_tao</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="ma_khoa_hoc"/>
+                    <field name="ma_dao_tao"/>
+                    <field name="ten_khoa_hoc"/>
                     <field name="employee_id"/>
                     <field name="nguoi_tham_gia_khoa_hoc"/>
                     <field name="chuc_vu_id"/>
@@ -40,8 +42,9 @@
             <field name="model">tham_gia_khoa_dao_tao</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="ma_khoa_hoc"/>
+                    <field name="ten_khoa_hoc"/>
                     <field name="employee_id"/>
+                    <field name="ma_dao_tao"/>
                     <field name="nguoi_tham_gia_khoa_hoc"/>
                     <field name="chuc_vu_id"/>
                     <field name="phong_ban_id"/>

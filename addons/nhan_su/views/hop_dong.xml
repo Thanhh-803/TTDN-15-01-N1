@@ -15,6 +15,7 @@
                             <field name="Ngay_bat_dau"/>
                             <field name="Ngay_ket_thuc"/>
                             <field name="luong_hop_dong"/>
+                            <field name="vi_tri_viec_lam"/>
                             <field name="trang_thai"/>
                         </group>
                     </sheet>
@@ -33,7 +34,12 @@
                     <field name="Ngay_bat_dau"/>
                     <field name="Ngay_ket_thuc"/>
                     <field name="luong_hop_dong"/>
-                    <field name="trang_thai"/>
+                    <field name="trang_thai" widget="badge"
+                        decoration-success="trang_thai == 'DangHieuLuc'"
+                        decoration-warning="trang_thai == 'DaHetHan'"
+                        decoration-danger="trang_thai == 'DaChamDut'"
+                        decoration-info="trang_thai == 'GiaHan'"
+                    />
                 </tree>
             </field>
         </record>
@@ -49,6 +55,28 @@
                     <field name="Ngay_ket_thuc"/>
                     <field name="luong_hop_dong"/>
                     <field name="trang_thai"/>
+
+
+                    <!-- Thêm Search Panel -->
+                    <searchpanel>
+                        <field name="nhan_vien_id" select="multi"/>
+                        <field name="loai_hop_dong" select="multi"/>
+                        <field name="trang_thai" select="multi"/>
+                    </searchpanel>
+                    <!-- Thêm bộ lọc tìm kiếm -->
+                    <filter name="nhan_vien_id" string="Nhân viên " domain="[('nhan_vien_id', '=', 'nhan_vien_id')]"/>
+
+                    <filter string="Ngắn hạn" name="filter_ngan_han" domain="[('loai_hop_dong', '=', 'ngan_han')]"/>
+                    <filter string="Toàn thời gian" name="filter_toan_thoi_gian" domain="[('loai_hop_dong', '=', 'toan_thoi_gian')]"/>
+                    <filter string="Thời vụ" name="filter_thoi_vu" domain="[('loai_hop_dong', '=', 'thoi_vu')]"/>
+                    <filter string="Thử việc" name="filter_thu_viec" domain="[('loai_hop_dong', '=', 'thu_viec')]"/>
+                    <filter string="Cộng tác viên" name="filter_cong_tac_vien" domain="[('loai_hop_dong', '=', 'cong_tac_vien')]"/>
+
+                    <filter string="Đang hiệu lực" name="filter_dang_hieu_luc" domain="[('trang_thai', '=', 'DangHieuLuc')]"/>
+                    <filter string="Đã hết hạn" name="filter_da_het_han" domain="[('trang_thai', '=', 'DaHetHan')]"/>
+                    <filter string="Đã chấm dứt" name="filter_da_cham_dut" domain="[('trang_thai', '=', 'DaChamDut')]"/>
+                    <filter string="Gia hạn" name="filter_gia_han" domain="[('trang_thai', '=', 'GiaHan')]"/>
+
                 </search>
             </field>
         </record>

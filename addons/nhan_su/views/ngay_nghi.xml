@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_ngay_nghi_form" model="ir.ui.view">
+            <field name="name">ngay_nghi</field>
+            <field name="model">ngay_nghi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Ngày nghỉ</div>
+                        <group col="4" string="Thông tin chung">
+                            <field name="nhan_vien_id"/>
+                            <field name="nam"/>
+                            <field name="thang_hanh_chinh"/>
+                            <field name="ngay_nghi"/>
+                            <field name="ly_do_nghi"/>
+                            <field name="loai_nghi"/>
+                            <field name="phe_duyet"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ngay_nghi_tree" model="ir.ui.view">
+            <field name="name">ngay_nghi</field>
+            <field name="model">ngay_nghi</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nhan_vien_id"/>
+                    <field name="nam"/>
+                    <field name="thang_hanh_chinh"/>
+                    <field name="ngay_nghi"/>
+                    <field name="ly_do_nghi"/>
+                    <field name="loai_nghi"/>
+                    <field name="phe_duyet" widget="badge"
+                        decoration-warning="phe_duyet == 'cho_duyet'"
+                        decoration-success="phe_duyet == 'da_duyet'"
+                        decoration-danger="phe_duyet == 'huy'"
+                    /> 
+                    <button name="action_xac_nhan" type="object" string="Chờ duyệt" class="btn-warning" attrs="{'invisible': [('phe_duyet', '=', 'cho_duyet')]}"/>
+                    <button name="action_da_duyet" type="object" string="Duyệt" class="btn-success" attrs="{'invisible': [('phe_duyet', '=', 'da_duyet')]}"/>
+                    <button name="action_huy" type="object" string="Hủy" class="btn-danger" attrs="{'invisible': [('phe_duyet', '=', 'huy')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ngay_nghi_search">
+            <field name="model">ngay_nghi</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                    <field name="nam"/>
+                    <field name="thang_hanh_chinh"/>
+                    <field name="ngay_nghi"/>
+                    <field name="ly_do_nghi"/>
+                    <field name="loai_nghi"/>
+                    <field name="phe_duyet"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ngay_nghi" model="ir.actions.act_window">
+            <field name="name">Ngày nghỉ</field>
+            <field name="res_model">ngay_nghi</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref = "ngay_nghi_search"/>
+        </record>
+    </data>
+</odoo>
+        
+    

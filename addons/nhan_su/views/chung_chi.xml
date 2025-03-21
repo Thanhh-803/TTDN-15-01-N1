@@ -10,10 +10,12 @@
                         <div class="oe_read_only" style="font-size:25px">Chứng chỉ</div>
                         <group col="4" string="Thông tin chung">
                             <field name="nhan_vien_id"/>
+                            <field name="ten_chung_chi"/>
                             <field name="loai_chung_chi"/>
-                            <field name="noi_cap"/>
                             <field name="ngay_cap"/>
                             <field name="ngay_het_han"/>
+                            <field name="cap_boi"/>
+                            <field name="trang_thai"/>
                         </group>
                     </sheet>
                 </form>
@@ -26,10 +28,15 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="nhan_vien_id"/>
+                    <field name="ten_chung_chi"/>
                     <field name="loai_chung_chi"/>
-                    <field name="noi_cap"/>
                     <field name="ngay_cap"/>
                     <field name="ngay_het_han"/>
+                    <field name="cap_boi"/>
+                    <field name="trang_thai" widget="badge"
+                        decoration-success="trang_thai == 'con_hieu_luc'"
+                        decoration-primary="trang_thai == 'het_han'"
+                    />    
                 </tree>
             </field>
         </record>
@@ -39,10 +46,12 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="nhan_vien_id"/>
+                    <field name="ten_chung_chi"/>
                     <field name="loai_chung_chi"/>
-                    <field name="noi_cap"/>
                     <field name="ngay_cap"/>
                     <field name="ngay_het_han"/>
+                    <field name="cap_boi"/>
+                    <field name="trang_thai"/>
                 </search>
             </field>
         </record>
