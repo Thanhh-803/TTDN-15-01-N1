@@ -127,16 +127,16 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="card mb-3 o_dashboard_card">
                                         <div class="card-header bg-success text-white">
-                                            <h5 class="mb-0">Cơ cấu nhân sự theo độ tuổi</h5>
+                                            <h5 class="mb-0">Thống kê nhân sự theo độ tuổi</h5>
                                         </div>
                                         <div class="card-body">
-                                            <canvas id="ageDistributionChart" height="300"></canvas>
+                                            <canvas id="ageGroupChart" height="300"></canvas>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="card mb-3 o_dashboard_card">
-                                        <div class="card-header bg-warning text-white">
+                                        <div class="card-header bg-primary text-white">
                                             <h5 class="mb-0">Tỷ lệ thưởng phạt nhân viên theo các tháng trong năm</h5>
                                         </div>
                                         <div class="card-body">

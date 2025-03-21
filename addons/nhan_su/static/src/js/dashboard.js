@@ -61,6 +61,7 @@ odoo.define('nhan_su.dashboard_overview', function (require) {
             // Vẽ biểu đồ đường: Biến động lương theo tháng
             this._renderSalaryTrendChart(data.salary_trend_data);
             this._renderRewardPenaltyChart(data.reward_penalty_ratio);
+            this._renderAgeGroupChart(data.age_group_data);
         },
         _formatCurrency: function (amount) {
             return amount.toLocaleString('vi-VN') + ' VNĐ';
@@ -191,6 +192,49 @@ odoo.define('nhan_su.dashboard_overview', function (require) {
                 }
             });
         },
+        _renderAgeGroupChart: function (data) {
+            if (!data) return;
+            var canvas = this.$('#ageGroupChart')[0];
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+        
+            var labels = ['Dưới 25', '25-35', '36-45', '46-55', 'Trên 55'];
+            var ageData = [
+                data.under_25 || 0,
+                data['25_35'] || 0,
+                data['36_45'] || 0,
+                data['46_55'] || 0,
+                data.above_55 || 0
+            ];
+        
+            if (this.ageGroupChart) {
+                this.ageGroupChart.destroy();
+            }
+        
+            this.ageGroupChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Phân bố độ tuổi nhân viên',
+                        data: ageData,
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                        hoverOffset: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        
     });
 
     var DashboardOverviewView = FormView.extend({

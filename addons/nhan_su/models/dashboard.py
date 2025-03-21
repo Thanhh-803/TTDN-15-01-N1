@@ -79,7 +79,31 @@ class Dashboard(models.Model):
                 'total_penalty': total_penalty,
                 'ratio': ratio,
             })
+
+        # Thống kê độ tuổi nhân viên
+        age_groups = {
+            'under_25': 0,
+            '25_35': 0,
+            '36_45': 0,
+            '46_55': 0,
+            'above_55': 0
+        }
+        employees = self.env['nhan_vien'].search([])
+        current_year = int(self.env["ir.config_parameter"].sudo().get_param("current_year", default="2025"))
         
+        for emp in employees:
+            if emp.ngay_sinh:
+                age = current_year - emp.ngay_sinh.year
+                if age < 25:
+                    age_groups['under_25'] += 1
+                elif 25 <= age <= 35:
+                    age_groups['25_35'] += 1
+                elif 36 <= age <= 45:
+                    age_groups['36_45'] += 1
+                elif 46 <= age <= 55:
+                    age_groups['46_55'] += 1
+                else:
+                    age_groups['above_55'] += 1
 
         
        
@@ -103,6 +127,7 @@ class Dashboard(models.Model):
             'canceled_leaves': canceled_leaves, 
 
             'reward_penalty_ratio': result_data,
+            'age_group_data': age_groups,
         }
     
     
